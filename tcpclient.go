@@ -269,7 +269,7 @@ func (mb *tcpTransporter) flush(b []byte) (err error) {
  * the read deadline.
  */
 func (mb *tcpTransporter) flushAll() (int, error) {
-	if err := mb.conn.SetReadDeadline(time.Now()); err != nil {
+	if err := mb.conn.SetReadDeadline(time.Now().Add(time.Millisecond * 50)); err != nil {
 		return 0, err
 	}
 
