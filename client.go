@@ -115,11 +115,11 @@ func (mb *client) ReadHoldingRegisters(address, quantity uint16) (results []byte
 	}
 	count := int(response.Data[0])
 	length := len(response.Data) - 1
-	if count != length {
+	if count > length {
 		err = fmt.Errorf("modbus: response data size '%v' does not match count '%v'", length, count)
 		return
 	}
-	results = response.Data[1:]
+	results = response.Data[1:count+1]
 	return
 }
 
@@ -146,11 +146,11 @@ func (mb *client) ReadInputRegisters(address, quantity uint16) (results []byte, 
 	}
 	count := int(response.Data[0])
 	length := len(response.Data) - 1
-	if count != length {
+	if count > length {
 		err = fmt.Errorf("modbus: response data size '%v' does not match count '%v'", length, count)
 		return
 	}
-	results = response.Data[1:]
+	results = response.Data[1:count+1]
 	return
 }
 
